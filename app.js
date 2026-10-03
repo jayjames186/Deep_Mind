@@ -35,5 +35,237 @@ function renderStudy(){const q=session,c=q.cards[q.index];if(!c){$('#study').inn
 document.addEventListener('click',async e=>{const set=e.target.closest('[data-set]');if(set){selected=set.dataset.set;renderDetail();return;}const option=e.target.closest('[data-option]');if(option&&session&&!session.answered){session.answered=true;const correct=session.options[+option.dataset.option]===session.cards[session.index];if(correct)session.score++;document.querySelectorAll('.quiz-option').forEach((b,i)=>{b.disabled=true;if(session.options[i]===session.cards[session.index])b.classList.add('correct');});if(!correct)option.classList.add('wrong');$('#feedback').textContent=correct?'That’s right!':'Keep going — the correct answer is highlighted.';$('#nextQuestion').hidden=false;return;}const action=e.target.closest('[data-action]')?.dataset.action;if(!action)return;if(action==='home')renderLibrary();if(action==='detail')renderDetail();if(action==='edit')openEditor(selected);if(action==='export')exportSets(sets.filter(s=>s.id===selected));if(action==='delete'&&confirm('Delete this study set? Export it first if you want to keep a backup.')){try{await persist(sets.filter(s=>s.id!==selected));renderLibrary();toast('Study set deleted.');}catch{toast('Could not delete this set.');}}if(action==='flash'||action==='quiz')startStudy(action);if(action==='restart')startStudy(session.mode);if(action==='flip'){session.flipped=!session.flipped;renderStudy();}if(action==='next'){session.index++;session.flipped=false;renderStudy();}if(action==='previous'&&session.index>0){session.index--;session.flipped=false;renderStudy();}});
 document.addEventListener('keydown',e=>{if($('#study').hidden||$('#editor').open||session?.mode!=='flash'||!session.cards[session.index]||/INPUT|TEXTAREA|BUTTON/.test(e.target.tagName))return;if(e.code==='Space'){e.preventDefault();session.flipped=!session.flipped;renderStudy();}if(e.code==='ArrowRight'){session.index++;session.flipped=false;renderStudy();}if(e.code==='ArrowLeft'&&session.index>0){session.index--;session.flipped=false;renderStudy();}});
 $('#newSet').onclick=()=>openEditor();$('#closeEditor').onclick=()=>$('#editor').close();$('#addCard').onclick=()=>{draft.push(blank());renderEditors();$('#cardEditors').lastElementChild.scrollIntoView({behavior:'smooth',block:'center'});};$('#libraryNav').onclick=renderLibrary;$('#search').oninput=renderLibrary;$('#importBtn').onclick=()=>$('#importFile').click();$('#exportBtn').onclick=()=>sets.length?exportSets(sets):toast('Create a study set first.');$('#quickStudy').onclick=()=>{if(!sets.length)return openEditor();selected=sets[0].id;renderDetail();startStudy('flash');};
-async function init(){try{const req=indexedDB.open('brian-study',1);req.onupgradeneeded=()=>req.result.createObjectStore('library');db=await request(req);const stored=await request(db.transaction('library').objectStore('library').get('sets'));if(stored){sets=stored;}else{const samples=[{title:'The art of learning',description:'Build better habits, one idea at a time.',cards:[['Active recall','Practice retrieving an answer from memory before looking at it.'],['Spaced repetition','Review material over increasing intervals of time.'],['Interleaving','Mix related topics during practice to learn when to apply each idea.'],['Elaboration','Explain an idea in your own words and connect it to what you already know.']]},{title:'A little everyday Spanish',description:'A few words to open up a whole new world.',cards:[['Hola','Hello'],['Gracias','Thank you'],['Por favor','Please'],['Hasta luego','See you later'],['Buenos días','Good morning']]},{title:'Our natural world',description:'A starting point for your next discovery.',cards:[['Photosynthesis','The process by which plants use light energy to make sugars from carbon dioxide and water.'],['Ecosystem','A community of organisms and the physical environment they interact with.'],['Biodiversity','The variety of life in a particular habitat or across Earth.']]}].map(s=>({...s,id:uid(),updatedAt:Date.now(),cards:s.cards.map(([front,back])=>({front,back,frontImage:'',backImage:''}))}));await persist(samples);}renderLibrary();}catch{$('#sets').innerHTML='<div class="empty">Browser storage is unavailable. Please enable site storage and reload to use your study library.</div>';for(const id of ['newSet','importBtn','exportBtn','quickStudy'])$('#'+id).disabled=true;}}
+const spanishPhraseSet = {
+  "id": "deep-mind-spanish-phrases-v1",
+  "title": "Spanish Phrases — Everyday Conversations",
+  "description": "36 common phrases for greetings, polite conversation, getting help, dining, and travel. Spanish on the front; English and usage notes on the back.",
+  "cards": [
+    {
+      "front": "Hola, ¿qué tal?",
+      "back": "Hi, how’s it going?",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Buenos días.",
+      "back": "Good morning.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Buenas tardes.",
+      "back": "Good afternoon.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Buenas noches.",
+      "back": "Good evening / Good night.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Cómo estás?",
+      "back": "How are you? (informal, one person)",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Muy bien, gracias. ¿Y tú?",
+      "back": "Very well, thank you. And you? (informal)",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Mucho gusto.",
+      "back": "Nice to meet you.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Me llamo…",
+      "back": "My name is…",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Cómo te llamas?",
+      "back": "What’s your name? (informal)",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Hasta luego.",
+      "back": "See you later.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Nos vemos mañana.",
+      "back": "See you tomorrow.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Por favor.",
+      "back": "Please.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Muchas gracias.",
+      "back": "Thank you very much.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "De nada.",
+      "back": "You’re welcome.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Con permiso.",
+      "back": "Excuse me. (when passing by or asking to get through)",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Lo siento.",
+      "back": "I’m sorry.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "No pasa nada.",
+      "back": "It’s okay / No problem.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "No entiendo.",
+      "back": "I don’t understand.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Puedes repetirlo, por favor?",
+      "back": "Can you repeat that, please? (informal)",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Más despacio, por favor.",
+      "back": "More slowly, please.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Habla inglés?",
+      "back": "Do you speak English? (formal, one person)",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Estoy aprendiendo español.",
+      "back": "I’m learning Spanish.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Qué significa esta palabra?",
+      "back": "What does this word mean?",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Dónde está el baño?",
+      "back": "Where is the bathroom?",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Cuánto cuesta?",
+      "back": "How much does it cost?",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Quisiera un café, por favor.",
+      "back": "I would like a coffee, please.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "La cuenta, por favor.",
+      "back": "The bill, please.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Puedo pagar con tarjeta?",
+      "back": "Can I pay by card?",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Me puede ayudar, por favor?",
+      "back": "Can you help me, please? (formal)",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Estoy buscando esta dirección.",
+      "back": "I’m looking for this address.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Tengo hambre.",
+      "back": "I’m hungry.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Tengo sed.",
+      "back": "I’m thirsty.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "¿Qué hora es?",
+      "back": "What time is it?",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Estoy de acuerdo.",
+      "back": "I agree.",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "No estoy seguro / segura.",
+      "back": "I’m not sure. (seguro: masculine speaker; segura: feminine speaker)",
+      "frontImage": "",
+      "backImage": ""
+    },
+    {
+      "front": "Que tengas un buen día.",
+      "back": "Have a good day. (informal, one person)",
+      "frontImage": "",
+      "backImage": ""
+    }
+  ]
+};
+async function addSpanishPhraseSet(){
+  // Save the migration marker and library together. User edits and deletions survive reloads.
+  const tx=db.transaction('library','readwrite'), store=tx.objectStore('library');
+  const done=new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});
+  let next=sets;
+  const marker=store.get('seed:spanish-phrases-v1');
+  marker.onsuccess=()=>{if(!marker.result){const saved=store.get('sets');saved.onsuccess=()=>{const current=saved.result||[];next=current.some(s=>s.id===spanishPhraseSet.id)?current:[...current,{...spanishPhraseSet,updatedAt:Date.now()}];store.put(next,'sets');store.put(true,'seed:spanish-phrases-v1');};}};
+  await done;sets=next;
+}
+async function init(){try{const req=indexedDB.open('brian-study',1);req.onupgradeneeded=()=>req.result.createObjectStore('library');db=await request(req);const stored=await request(db.transaction('library').objectStore('library').get('sets'));if(stored){sets=stored;}else{const samples=[{title:'The art of learning',description:'Build better habits, one idea at a time.',cards:[['Active recall','Practice retrieving an answer from memory before looking at it.'],['Spaced repetition','Review material over increasing intervals of time.'],['Interleaving','Mix related topics during practice to learn when to apply each idea.'],['Elaboration','Explain an idea in your own words and connect it to what you already know.']]},{title:'A little everyday Spanish',description:'A few words to open up a whole new world.',cards:[['Hola','Hello'],['Gracias','Thank you'],['Por favor','Please'],['Hasta luego','See you later'],['Buenos días','Good morning']]},{title:'Our natural world',description:'A starting point for your next discovery.',cards:[['Photosynthesis','The process by which plants use light energy to make sugars from carbon dioxide and water.'],['Ecosystem','A community of organisms and the physical environment they interact with.'],['Biodiversity','The variety of life in a particular habitat or across Earth.']]}].map(s=>({...s,id:uid(),updatedAt:Date.now(),cards:s.cards.map(([front,back])=>({front,back,frontImage:'',backImage:''}))}));await persist(samples);}await addSpanishPhraseSet();renderLibrary();}catch{$('#sets').innerHTML='<div class="empty">Browser storage is unavailable. Please enable site storage and reload to use your study library.</div>';for(const id of ['newSet','importBtn','exportBtn','quickStudy'])$('#'+id).disabled=true;}}
 init();

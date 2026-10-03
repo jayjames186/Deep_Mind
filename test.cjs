@@ -36,3 +36,21 @@ assert.throws(()=>run("validateImported(importDelimited('term,definition','empty
 assert.throws(()=>run("importDelimited('set_id,term,definition\\na,b,c','bad.csv')"));
 assert.throws(()=>run("importDelimited('a,b,c','bad.csv')"));
 console.log('Passed: full CSV round-trip with images, multiple sets with identical titles, Unicode, quotes and multiline text; simple CSV imports; malformed imports; legacy backups; image validation; escaping; shuffle.');
+
+(async()=>{
+  const memory=new Map([['sets',[{id:'user-set',title:'My own set'}]]]);
+  context.mockDb={transaction(){let pending=0;const tx={};const store={get(key){pending++;const req={};setImmediate(()=>{req.result=memory.get(key);req.onsuccess?.();if(--pending===0)setImmediate(()=>tx.oncomplete?.());});return req;},put(value,key){memory.set(key,value);}};tx.objectStore=()=>store;return tx;}};
+  run('db=mockDb; sets=[]');
+  await run('addSpanishPhraseSet()');
+  assert.equal(memory.get('sets').length,2);
+  assert.equal(memory.get('sets')[0].title,'My own set');
+  assert.equal(memory.get('sets')[1].cards.length,36);
+  await run('addSpanishPhraseSet()');
+  assert.equal(memory.get('sets').length,2);
+  memory.set('sets',[{id:'user-set',title:'Edited set'}]);
+  await run('addSpanishPhraseSet()');
+  assert.equal(memory.get('sets').length,1);
+  assert.equal(memory.get('sets')[0].title,'Edited set');
+  assert.equal(json("validateImported(importDelimited(setsToCsv([spanishPhraseSet]),'Spanish.csv'))")[0].cards.length,36);
+  console.log('Passed: Spanish set migration preserves existing data, adds once, respects deletion, and exports/imports all 36 cards.');
+})().catch(error=>{console.error(error);process.exitCode=1;});
