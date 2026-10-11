@@ -1,12 +1,10 @@
-const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
-const nodes=new Map(),saved=new Map();
-const absent=new Set(['#mathTools','#mathToolsScroll','#toolwidth','#toolheight','#toolwidthValue','#toolheightValue','#toolPosition','#toolPositionValue','#toolSizeStatus']);
-function $(id){if(absent.has(id))return null;if(!nodes.has(id))nodes.set(id,{style:{},value:'',textContent:'',innerHTML:'',scrollWidth:900,clientWidth:300,setAttribute(){},addEventListener(){}});return nodes.get(id);}
-let page;const ctx=vm.createContext({$,show:id=>page=id,renderMath(){},localStorage:{getItem:k=>saved.get(k)??null,setItem:(k,v)=>saved.set(k,v)}});
-for(const file of ['math.js','settings.js'])vm.runInContext(fs.readFileSync(__dirname+'/'+file,'utf8'),ctx);
-const run=s=>vm.runInContext(s,ctx);
-run('renderSettings()');assert.equal(page,'settings');assert.ok($('#settings').innerHTML.includes('Panel size & position'));
-run("updateToolSize('width',-200);updateToolSize('height',200);updateToolPosition(40);syncSettingsPreview()");
-assert.equal($('#settingsPreviewPanels').style.width,'50%');assert.equal($('#settingsPreviewPanels').style.height,'280px');assert.equal($('#setting-width').value,-200);assert.equal(run("loadToolSize('width')"),-200);
-$('#resetPanelSettings').onclick();assert.equal(run('mathToolSizes.width'),0);assert.equal(run('mathToolSizes.height'),0);assert.equal(run('mathToolPosition'),0);assert.equal($('#settingsPreviewPanels').style.width,'100%');
-console.log('Passed: Settings before opening practice, live size preview, persistence, and reset.');
+﻿const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const nodes=new Map(),saved=new Map([['deep-mind:math-tool-adjustment-width','150'],['deep-mind:interface-size','85']]);
+function $(id){if(!nodes.has(id))nodes.set(id,{value:'',textContent:'',innerHTML:'',setAttribute(){},addEventListener(){}});return nodes.get(id);}
+let page;const root={style:{}};const ctx=vm.createContext({$,show:id=>page=id,document:{documentElement:root},localStorage:{getItem:k=>saved.get(k)??null,setItem:(k,v)=>saved.set(k,v)}});
+vm.runInContext(fs.readFileSync(__dirname+'/settings.js','utf8'),ctx);const run=s=>vm.runInContext(s,ctx);
+assert.equal(root.style.zoom,'0.85');run('renderSettings()');assert.equal(page,'settings');assert.ok($('#settings').innerHTML.includes('Overall website size'));
+run('applyInterfaceSize(125)');assert.equal(root.style.zoom,'1.25');assert.equal(run('loadInterfaceSize()'),125);assert.equal($('#interfaceSizeValue').textContent,'125%');assert.equal(saved.get('deep-mind:math-tool-adjustment-width'),'150');
+$('#resetInterfaceSize').onclick();assert.equal(root.style.zoom,'1');assert.equal(run('loadInterfaceSize()'),100);assert.equal(run('normalizeInterfaceSize(null)'),100);assert.equal(run('normalizeInterfaceSize(0)'),50);assert.equal(run('normalizeInterfaceSize(900)'),150);
+ctx.localStorage={getItem(){throw Error('blocked')},setItem(){throw Error('blocked')}};run('applyInterfaceSize(75)');assert.equal(root.style.zoom,'0.75');assert.ok($('#interfaceSaveStatus').textContent.includes('session'));assert.equal(run('loadInterfaceSize()'),100);
+console.log('Passed: website-wide scaling, startup restoration, reset, bounds, independent math preferences, and storage fallback.');
