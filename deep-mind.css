@@ -23,15 +23,16 @@
 @media(max-width:900px){.math-tools{grid-template-columns:minmax(0,1fr);gap:18px}.math-notepad textarea{min-height:220px}.math-notepad,.inline-calculator{padding:16px}}
 
 /* One saved scale for both workspace panels. */
-#mathTools{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:calc(24px * var(--tool-scale,1));width:min(100%,calc(100% * var(--tool-scale,1)));align-items:stretch;transition:width .12s ease}
-#mathTools .math-notepad,#mathTools .inline-calculator{padding:calc(20px * var(--tool-scale,1))}
-#mathTools h3{font-size:calc(16px * var(--tool-scale,1));margin-bottom:calc(16px * var(--tool-scale,1))}
-#mathTools textarea{min-height:calc(280px * var(--tool-scale,1));font-size:calc(14px * var(--tool-scale,1));resize:none}
-#mathTools .inline-calculator input{font-size:calc(18px * var(--tool-scale,1));padding:calc(12px * var(--tool-scale,1))}
-#mathTools #calculatorKeys{gap:calc(7px * var(--tool-scale,1))}
-#mathTools #calculatorKeys button{font-size:calc(13px * var(--tool-scale,1));padding:calc(10px * var(--tool-scale,1)) 4px}
-#mathTools .calc-equals{padding:calc(13px * var(--tool-scale,1)) 12px;font-size:calc(13px * var(--tool-scale,1))}
-#mathTools .inline-calculator output{min-height:calc(48px * var(--tool-scale,1));font-size:calc(19px * var(--tool-scale,1));padding:calc(12px * var(--tool-scale,1)) 0}
+#mathTools{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;width:calc(100% * var(--tool-width,1));align-items:stretch;transition:width .12s ease}
+#mathTools .math-notepad,#mathTools .inline-calculator{padding:calc(20px * var(--tool-height,1)) 20px}
+#mathTools h3{font-size:16px;margin-bottom:calc(16px * var(--tool-height,1))}
+#mathTools textarea{min-height:calc(280px * var(--tool-height,1));font-size:14px;resize:none}
+#mathTools .inline-calculator input{font-size:18px;padding:calc(12px * var(--tool-height,1)) 12px}
+#mathTools #calculatorKeys{column-gap:7px;row-gap:calc(7px * var(--tool-height,1))}
+#mathTools #calculatorKeys button{font-size:13px;padding:calc(10px * var(--tool-height,1)) 4px}
+#mathTools .calc-equals{padding:calc(13px * var(--tool-height,1)) 12px;font-size:13px}
+#mathTools .inline-calculator output{min-height:calc(48px * var(--tool-height,1));font-size:19px;padding:calc(12px * var(--tool-height,1)) 0}
+.tool-size-title{color:#e4dfd6;font-size:12px;margin:0 0 18px;font-weight:600}
 .tool-size-control{position:relative;width:fit-content;margin-top:22px;z-index:2}
 .tool-size-control summary{list-style:none;cursor:pointer;padding:8px 13px;border:1px solid #88897980;border-radius:8px;background:linear-gradient(110deg,#55417188,#586b3688);color:#ede7dc;font-size:11px;font-weight:600}
 .tool-size-control summary::-webkit-details-marker{display:none}.tool-size-control summary:focus-visible{outline:2px solid #c8b0e6;outline-offset:3px}
