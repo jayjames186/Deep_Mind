@@ -68,3 +68,8 @@ Create or edit daily or one-time quests, record targets, minutes and notes, and 
 Completed flashcard sessions, quizzes, math sessions, and correct 3ds Max knowledge checks earn Mind XP once per activity per local day. This begins with this update; prior sessions are not backfilled. All progress is browser-local. Overclock has its own Export progress CSV / Import progress CSV controls; study-card CSV files remain separate. Imports merge quests and activities by ID without duplicates and restore the exported profile. Removing a quest retains its activity history.
 
 Publish `overclock.js` and `overclock.css` alongside the other site files. Run `node overclock-test.cjs` for progression, persistence, daily completion, backup, and learning-hook checks.
+
+
+## Psychology
+
+The Psychology section offers seven source-linked lessons on happiness, confidence, empathy, facial expressions, emotional regulation, reframing thoughts, and stress. Each has key ideas, an example, a scenario check, a hint, and optional session-only reflection notes. Notes are not exported or included in progress logs. Correct checks award 25 Psychology XP once per lesson per local day; XP measures participation rather than mental health. Lesson cards can be exported as CSV for the study library. Sources include NIMH, NIH, NHS, WHO, and APA. Content is educational, not diagnosis or therapy. Include `psychology.js` when publishing. Run `node psychology-test.cjs` for lesson and XP checks.
