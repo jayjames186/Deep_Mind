@@ -8,5 +8,16 @@
 
 .math-subjects{margin-bottom:22px}.math-subjects [aria-pressed="true"]{background:#17415a;border-color:#65c7ef;color:#c3f0ff}
 
-/* Math calculator stays available between practice questions. */
-#mathCalculator{position:fixed;bottom:18px;right:22px;z-index:5;width:min(350px,calc(100vw - 32px))}.calculator{background:#101e31;border:1px solid #3c6581;border-radius:13px;box-shadow:0 12px 45px #0008}.calculator summary{padding:15px 18px;color:#a0e0fa;cursor:pointer;font-size:14px;font-weight:600}.calculator summary span{font-size:10px;color:#8ca5c2;margin-left:10px;font-weight:400}.calculator form{padding:0 18px 18px;max-height:65vh;overflow:auto}.calculator label{margin:4px 0 8px;font-size:11px}.calculator input{width:100%;font-size:18px}.calculator output{display:block;overflow-wrap:anywhere;min-height:48px;padding:13px 0;color:#93e1c2;font-size:19px}.calculator output.calc-error{font-size:13px;color:#ffc192}#calculatorKeys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}#calculatorKeys button{padding:10px 5px}.calc-equals{width:100%;margin-top:8px}#calculatorHelp{font-size:10px;color:#95acc7;line-height:1.7;margin:12px 0 0}body:has(#mathCalculator:not([hidden])) footer{padding-bottom:80px}@media(max-width:760px){#mathCalculator{bottom:10px;right:16px}.calculator form{max-height:52vh}}
+/* Inline math workspace: notes left, calculator right. */
+#math .math-workspace{grid-template-columns:minmax(0,1fr)}
+.math-tools{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:stretch;margin-top:26px}
+.math-notepad,.inline-calculator{min-width:0;border:1px solid #2e4561;border-radius:12px;padding:20px;background:#0b1728}
+.math-notepad{display:flex;flex-direction:column;border-color:#534373;background:linear-gradient(150deg,#211c352e,#0b1728)}
+.inline-calculator{border-color:#4b5945;background:linear-gradient(150deg,#27322522,#0b1728)}
+.math-tools h3{font-size:16px;margin:0 0 16px}.math-notepad h3{color:#d2b9f4}.inline-calculator h3{color:#c9dda3}
+.math-tools label{font-size:11px;color:#98aec8;margin:0 0 8px}
+.math-notepad textarea{width:100%;flex:1;min-height:300px;resize:vertical;line-height:1.9;font-size:14px;background:repeating-linear-gradient(#0a1424,#0a1424 26px,#24324b 27px);padding:12px}
+.notepad-footer{display:flex;align-items:center;gap:12px;justify-content:space-between;margin-top:12px}.notepad-footer small{font-size:10px;color:#8da1bd;line-height:1.6}.notepad-footer button{white-space:nowrap;color:#c4a7e9}
+.inline-calculator input{width:100%;font-size:18px}.inline-calculator output{display:block;overflow-wrap:anywhere;min-height:48px;padding:12px 0;color:#93e1c2;font-size:19px}.inline-calculator output.calc-error{font-size:13px;color:#ffc192}
+#calculatorKeys{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}#calculatorKeys button{padding:10px 4px;font-size:13px}.calc-equals{width:100%;margin-top:9px}#calculatorHelp{font-size:10px;color:#95acc7;line-height:1.7;margin:12px 0 0}
+@media(max-width:900px){.math-tools{grid-template-columns:minmax(0,1fr);gap:18px}.math-notepad textarea{min-height:220px}.math-notepad,.inline-calculator{padding:16px}}

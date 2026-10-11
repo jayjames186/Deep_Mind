@@ -1,7 +1,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const elements=new Map();
 function $(id){if(!elements.has(id))elements.set(id,{value:'',hidden:true,textContent:'',innerHTML:'',className:'',addEventListener(){},focus(){},select(){},querySelector(){return {};}});return elements.get(id);}
-const ctx=vm.createContext({$,show(){},esc:s=>String(s),console});
+const ctx=vm.createContext({$,show(){},renderCalculator(){return '<section class="inline-calculator">Calculator</section>';},bindCalculator(){},esc:s=>String(s),console});
 vm.runInContext(fs.readFileSync(__dirname+'/math.js','utf8'),ctx);
 vm.runInContext(fs.readFileSync(__dirname+'/algebra2.js','utf8'),ctx);
 const run=s=>vm.runInContext(s,ctx);
@@ -30,3 +30,5 @@ assert.ok(!run("mathAnswerMatches('hello, 3',[2,3])"));
 run("mathSubject='algebra2'; mathSession={topic:'quadratics',difficulty:'challenge',number:0,correct:0,assisted:0,previous:''};nextMathProblem();$('#mathAnswer').value=mathSession.problem.answer.join(',');checkMathAnswer({preventDefault(){}})");
 assert.equal(run('mathSession.correct'),1);
 console.log('Passed: 2,400 Algebra 2 equations, both-root validation, Algebra 2 rendering and scoring.');
+
+run('renderMathProblem()');assert.ok($('#math').innerHTML.includes('math-notepad'));assert.ok($('#math').innerHTML.includes('inline-calculator'));assert.ok(!$('#math').innerHTML.includes('THINKING SPACE'));run("mathNotesDraft='My working';nextMathProblem()");assert.ok($('#math').innerHTML.includes('My working'));console.log('Passed: inline notepad/calculator placement and notes retained between problems.');

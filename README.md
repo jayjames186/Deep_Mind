@@ -28,7 +28,7 @@ Gracias,Thank you
 
 ## Publish on GitHub Pages
 
-1. Create a GitHub repository and upload `index.html`, `style.css`, `deep-mind.css`, `neural-field.svg`, `app.js`, `math.js`, `algebra2.js`, `max.js`, and `.nojekyll` to its root (or push this folder using Git).
+1. Create a GitHub repository and upload `index.html`, `style.css`, `deep-mind.css`, `neural-field.svg`, `app.js`, `math.js`, `algebra2.js`, `max.js`, `calculator.js`, and `.nojekyll` to its root (or push this folder using Git).
 2. In repository **Settings → Pages**, select **Deploy from a branch**, branch `main`, folder `/ (root)`, and Save.
 3. Open the website URL GitHub shows once deployment completes.
 
@@ -42,7 +42,7 @@ Run `node --check app.js` and `node test.cjs` for JavaScript syntax and import v
 
 Open **Math** in the sidebar, then choose an Algebra topic: one-step equations, two-step equations, variables on both sides, or the distributive property. Each session generates 10 problems. Foundations uses positive answers; Challenge includes negative numbers and larger coefficients.
 
-Enter a number, decimal, or fraction and check your answer. Incorrect answers can be retried. Reveal up to two hints or open the complete worked solution, including a substitution check. Use the scratch space for working. Session results separate unassisted solutions from problems completed with hints or a revealed solution. Practice progress is session-only and is separate from the saved flashcard library and CSV exports.
+Enter a number, decimal, or fraction and check your answer. Incorrect answers can be retried. Reveal up to two hints or open the complete worked solution, including a substitution check. Use the inline notepad for working. Session results separate unassisted solutions from problems completed with hints or a revealed solution. Practice progress is session-only and is separate from the saved flashcard library and CSV exports.
 
 Run `node math-test.cjs` to check generated equations, answer parsing, hints, scoring, and session completion.
 
@@ -53,3 +53,7 @@ Open **3ds Max** in the sidebar for six lessons covering the modifier stack, pol
 
 ## Algebra 2
 Choose Math → Algebra 2 for quadratic, exponential, logarithmic, and radical equations. Each topic has two difficulty levels, ten-problem sessions, hints, and worked solutions. Quadratic answers require both real roots, separated by a comma, in either order.
+
+
+## Math workspace tools
+During Algebra and Algebra 2 practice, the problem panel includes a notepad on the left and a calculator on the right. On smaller screens they stack vertically. Notes and calculator contents carry between problems during the page session; reloading clears them. Use Clear notes to empty the notepad. The former Thinking Space sidebar and floating calculator dropdown have been removed.
