@@ -57,3 +57,14 @@ Choose Math → Algebra 2 for quadratic, exponential, logarithmic, and radical e
 
 ## Math workspace tools
 During Algebra and Algebra 2 practice, the problem panel includes a notepad on the left and a calculator on the right. On smaller screens they stack vertically. Notes and calculator contents carry between problems during the page session; reloading clears them. Use Clear notes to empty the notepad. The former Thinking Space sidebar and floating calculator dropdown have been removed.
+
+
+## Overclock
+
+Overclock is the starting dashboard, above My Library. Complete quests to earn XP and develop Mind, Body, Psychology, Charisma, Comedy, and Entertainment skills. Global levels require 200 XP; each skill level requires 100 XP. Every completion earns 25 XP. Streaks count local calendar days, with yesterday keeping an active streak until today is completed.
+
+Create or edit daily or one-time quests, record targets, minutes and notes, and undo completions. Body quests use your own exercises and targets with gain/lose weight, muscle, cardio, or mobility goals. The game does not prescribe training or weight targets. XP records activity, not health outcomes or proven expertise.
+
+Completed flashcard sessions, quizzes, math sessions, and correct 3ds Max knowledge checks earn Mind XP once per activity per local day. This begins with this update; prior sessions are not backfilled. All progress is browser-local. Overclock has its own Export progress CSV / Import progress CSV controls; study-card CSV files remain separate. Imports merge quests and activities by ID without duplicates and restore the exported profile. Removing a quest retains its activity history.
+
+Publish `overclock.js` and `overclock.css` alongside the other site files. Run `node overclock-test.cjs` for progression, persistence, daily completion, backup, and learning-hook checks.
