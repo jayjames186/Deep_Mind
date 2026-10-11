@@ -22,4 +22,20 @@
 #calculatorKeys{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}#calculatorKeys button{padding:10px 4px;font-size:13px}.calc-equals{width:100%;margin-top:9px}#calculatorHelp{font-size:10px;color:#95acc7;line-height:1.7;margin:12px 0 0}
 @media(max-width:900px){.math-tools{grid-template-columns:minmax(0,1fr);gap:18px}.math-notepad textarea{min-height:220px}.math-notepad,.inline-calculator{padding:16px}}
 
-.tool-size-control{margin-top:27px;padding:16px 18px;border:1px solid #493d64;border-radius:10px;background:#241a352b}.tool-size-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.tool-size-heading label{margin:0;color:#d2b9f4;font-size:12px}.tool-size-heading output{color:#99b9d4;font-size:11px}.tool-size-range{display:flex;align-items:center;gap:14px;margin:12px 0}.tool-size-range span{font-size:10px;color:#a6b4cf;white-space:nowrap}.tool-size-range input{width:100%;min-width:40px;accent-color:#bb97e8;padding:0;cursor:ew-resize}.tool-size-control small{color:#809ab6;font-size:10px}.tool-size-control+.math-tools{margin-top:16px}@media(max-width:900px){#mathTools{grid-template-columns:minmax(0,1fr)!important}.tool-size-range{gap:8px}.tool-size-range span{font-size:9px}}
+/* One saved scale for both workspace panels. */
+#mathTools{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:calc(24px * var(--tool-scale,1));width:min(100%,calc(100% * var(--tool-scale,1)));align-items:stretch;transition:width .12s ease}
+#mathTools .math-notepad,#mathTools .inline-calculator{padding:calc(20px * var(--tool-scale,1))}
+#mathTools h3{font-size:calc(16px * var(--tool-scale,1));margin-bottom:calc(16px * var(--tool-scale,1))}
+#mathTools textarea{min-height:calc(280px * var(--tool-scale,1));font-size:calc(14px * var(--tool-scale,1));resize:none}
+#mathTools .inline-calculator input{font-size:calc(18px * var(--tool-scale,1));padding:calc(12px * var(--tool-scale,1))}
+#mathTools #calculatorKeys{gap:calc(7px * var(--tool-scale,1))}
+#mathTools #calculatorKeys button{font-size:calc(13px * var(--tool-scale,1));padding:calc(10px * var(--tool-scale,1)) 4px}
+#mathTools .calc-equals{padding:calc(13px * var(--tool-scale,1)) 12px;font-size:calc(13px * var(--tool-scale,1))}
+#mathTools .inline-calculator output{min-height:calc(48px * var(--tool-scale,1));font-size:calc(19px * var(--tool-scale,1));padding:calc(12px * var(--tool-scale,1)) 0}
+.tool-size-control{position:relative;width:fit-content;margin-top:22px;z-index:2}
+.tool-size-control summary{list-style:none;cursor:pointer;padding:8px 13px;border:1px solid #88897980;border-radius:8px;background:linear-gradient(110deg,#55417188,#586b3688);color:#ede7dc;font-size:11px;font-weight:600}
+.tool-size-control summary::-webkit-details-marker{display:none}.tool-size-control summary:focus-visible{outline:2px solid #c8b0e6;outline-offset:3px}
+.tool-size-popover{position:absolute;left:0;top:calc(100% + 8px);width:min(340px,65vw);border:1px solid #818578;border-radius:12px;background:linear-gradient(115deg,#251c35,#222e22);padding:16px;box-shadow:0 15px 35px #0008}
+.tool-size-heading{display:flex;justify-content:space-between;gap:12px;align-items:center}.tool-size-heading label{margin:0;color:#ddd0ea;font-size:11px}.tool-size-heading output{color:#d4dfb4;font-size:12px}
+.tool-size-range{display:flex;align-items:center;gap:10px;margin:16px 0}.tool-size-range span{font-size:10px;color:#c4c6c8}.tool-size-range input{appearance:none;-webkit-appearance:none;min-width:0;width:100%;height:8px;padding:0;border:0;border-radius:10px;background:linear-gradient(90deg,#ab82d5,#c6d783);cursor:ew-resize}.tool-size-range input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:linear-gradient(130deg,#d3b1f6,#dcebb5);border:2px solid #eee;box-shadow:0 2px 7px #0005}.tool-size-range input::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:linear-gradient(130deg,#d3b1f6,#dcebb5);border:2px solid #eee}.tool-size-control small{display:block;color:#abb6ab;font-size:10px;line-height:1.6}#closeToolSize{display:block;margin:10px 0 0 auto;color:#e3e6d4;padding:5px 9px}.tool-size-control+.math-tools{margin-top:12px}
+@media(max-width:900px){#mathTools{grid-template-columns:minmax(0,1fr)}.tool-size-popover{width:min(320px,70vw)}}
