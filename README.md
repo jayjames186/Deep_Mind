@@ -73,3 +73,9 @@ Publish `overclock.js` and `overclock.css` alongside the other site files. Run `
 ## Psychology
 
 The Psychology section offers seven source-linked lessons on happiness, confidence, empathy, facial expressions, emotional regulation, reframing thoughts, and stress. Each has key ideas, an example, a scenario check, a hint, and optional session-only reflection notes. Notes are not exported or included in progress logs. Correct checks award 25 Psychology XP once per lesson per local day; XP measures participation rather than mental health. Lesson cards can be exported as CSV for the study library. Sources include NIMH, NIH, NHS, WHO, and APA. Content is educational, not diagnosis or therapy. Include `psychology.js` when publishing. Run `node psychology-test.cjs` for lesson and XP checks.
+
+## Mobile and tablet layout
+
+Publish `responsive.css` and `mobile.js` with the site. At widths of 900px and below, the sidebar becomes a collapsible Sections menu. Cards, lessons, forms, and math tools reflow for smaller screens; inputs use readable text and controls have larger touch targets. Math tools keep their saved size settings, with a mobile minimum width and button height for usability. Oversized tools scroll within their own workspace. Starting a math problem on a touch device does not automatically focus the answer field or open the keyboard.
+
+Verified in headless Chrome at 320, 390, 600, 768, 900, and 1280px: section navigation, study cards and quizzes, lesson layouts, settings, dialogs, calculator interaction, and small/large saved math-tool widths (105 page/viewport overflow checks). Phone screenshots were also reviewed. This is browser emulation, not testing on physical iOS or Android devices.

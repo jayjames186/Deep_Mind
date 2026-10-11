@@ -1,0 +1,113 @@
+/* Mobile and tablet layouts; desktop size preferences stay intact. */
+.mobile-menu-toggle{display:none}
+.sidebar{overflow-y:auto}
+#workspaceNav{min-width:0}
+main:focus{outline:none}
+img,svg{max-width:100%}
+@media(max-width:1100px){
+  .study-top,.library-toolbar{flex-wrap:wrap;gap:12px}
+  .difficulty-label{min-width:0;max-width:100%}
+  .difficulty-label select{min-width:0;width:100%}
+  .oc-command{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .oc-launch .actions{flex-wrap:wrap}
+}
+@media(max-width:900px){
+  .sidebar{position:static;width:100%;padding:14px max(16px,env(safe-area-inset-right)) 14px max(16px,env(safe-area-inset-left));border:0;border-bottom:1px solid #25364e;display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px;overflow:visible}
+  .sidebar .brand{width:auto;margin:0 auto 0 0;gap:10px}
+  .brand-name{font-size:15px}.brand-icon{width:38px;height:38px;font-size:28px}
+  .sidebar .workspace-label,.sidebar-bottom{display:none}
+  .mobile-menu-toggle{display:flex;align-items:center;gap:8px;min-height:44px;padding:10px 14px;background:#132338;border:1px solid #314965;border-radius:9px;color:#c4ddf6;font:600 14px 'DM Sans',sans-serif}
+  #workspaceNav{display:none;flex-basis:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:4px}
+  .mobile-menu-toggle[aria-expanded=true]+#workspaceNav{display:grid}
+  .sidebar #workspaceNav .nav{display:flex;align-items:center;width:100%;margin:0;padding:12px;min-height:48px;font-size:14px;gap:10px}
+  main{margin:0;max-width:none;padding:0 max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left));min-width:0}
+  header{height:auto;min-height:62px;gap:12px;padding:8px 0}
+  header>span{font-size:9px;line-height:1.6;max-width:130px;letter-spacing:1px}
+  .header-actions{gap:8px;flex-shrink:0}.header-actions .text-button{min-height:44px;padding:8px 5px;font-size:13px}
+  .header-settings{width:44px;height:44px;font-size:23px}.avatar{display:none}
+  .heading-row{margin:26px 0 24px;flex-wrap:wrap;gap:16px}
+  h1{font-size:30px;line-height:1.25;letter-spacing:-.8px}
+  .subtitle{font-size:15px;line-height:1.65}
+  button,input,select,textarea,summary{touch-action:manipulation}
+  button,.primary,.secondary,.text-button,.back-button,.oc-link{min-height:44px}
+  .primary,.secondary,.text-button,.back-button{font-size:14px;white-space:normal;line-height:1.4}
+  input:not([type=range]):not([type=checkbox]),textarea,select{font-size:16px;min-height:44px}
+  label{font-size:14px}input[type=checkbox]{width:20px;height:20px;vertical-align:middle}
+  summary{min-height:44px;align-content:center;line-height:1.6}
+  .eyebrow,.topic-number{font-size:11px;line-height:1.6}
+  .hero{padding:26px;min-height:300px}.hero h2{font-size:31px}.hero h2 em{font-size:26px}.hero p{font-size:14px}
+  .hero>div:first-child{flex-shrink:1}.hero-art{opacity:.35;right:-180px;transform:none;margin:0}
+  .hero-button{font-size:14px;min-height:44px}
+  .library-toolbar{margin:26px 0 18px;flex-wrap:wrap}.library-toolbar h2{font-size:18px}
+  .library-toolbar input{font-size:16px;max-width:100%;min-height:44px}
+  .set-card,.math-topic{padding:22px}.set-card p,.math-topic p{font-size:14px;line-height:1.7;min-height:0}
+  .set-meta,.topic-link{font-size:12px;gap:10px}.set-card h3,.math-topic h3{font-size:18px}
+  .storage-note,.psych-note{font-size:12px;line-height:1.8}
+  .math-banner,.psych-banner{padding:24px}.math-banner h2{font-size:34px}.math-art,.max-cube,.psych-orbit{display:none}
+  .math-banner p,.psych-banner p{font-size:14px;line-height:1.7}
+  .math-workspace,.psych-lesson-layout{grid-template-columns:minmax(0,1fr)}
+  .study-top{align-items:flex-start}.study-top>div{min-width:0}.study-top>span{font-size:13px}
+  .problem-panel,.scratch-panel,.psych-lesson{padding:20px;min-width:0}
+  .answer-row{display:grid;grid-template-columns:auto minmax(0,1fr)}.answer-row .primary{grid-column:1/-1;width:100%}
+  #math #answerHelp{font-size:13px;line-height:1.6}.math-help-actions{flex-wrap:wrap;gap:10px}
+  .solution-box li,.hint-box p,.scratch-panel p,.psych-ideas p,.psych-example p{font-size:15px}
+  .scratch-panel small,.scratch-panel .max-note{font-size:12px;line-height:1.6}
+  .math-tools-scroll{overscroll-behavior-x:contain}
+  #mathTools{grid-template-columns:minmax(0,1fr);min-width:min(100%,300px);gap:16px}
+  #math #mathTools .inline-calculator input,#math #mathTools textarea{font-size:16px;min-height:44px}
+  #math #mathTools textarea{min-height:max(180px,calc(185px * var(--tool-height,1)))}
+  #math #mathTools #calculatorKeys button,#math #mathTools .calc-equals{min-height:44px;font-size:16px}
+  #mathTools label{font-size:14px}#math #mathTools .notepad-footer small{font-size:12px}
+  .tool-size-control{width:100%}.tool-size-control summary{width:fit-content;font-size:14px}
+  .tool-size-popover{position:static;width:100%;max-width:450px;max-height:none;margin-top:10px;padding:18px}
+  .tool-size-heading label,.tool-size-heading output{font-size:14px}.tool-size-heading{flex-wrap:wrap}
+  .tool-size-range{margin:12px 0 20px;gap:8px}.tool-size-range span{font-size:12px}
+  .tool-size-range input{height:32px;background:linear-gradient(90deg,#ab82d5,#c6d783) center/100% 8px no-repeat}
+  .tool-size-range input::-webkit-slider-thumb{width:26px;height:26px}.tool-size-range input::-moz-range-thumb{width:23px;height:23px}
+  .tool-size-control small{font-size:12px}#closeToolSize{min-height:44px}
+  .max-intro,.max-steps li,.psych-lesson #psychFeedback{font-size:15px;line-height:1.8}
+  .max-source{font-size:14px;overflow-wrap:anywhere;min-height:44px;align-content:center}
+  .max-options button,.quiz-option{font-size:15px;line-height:1.65}
+  .psych-xp-note,.psych-practice .psych-practice-footer{font-size:12px;line-height:1.7}
+  .psych-hint,.max-reveal summary{font-size:14px}
+  .settings-panel{padding:22px}.settings-title p,.interface-settings #interfaceSizeHelp,.interface-settings #interfaceSaveStatus,.interface-settings-note{font-size:14px}
+  .interface-settings input[type=range]{height:32px;margin:8px 0;min-width:0}.settings-endpoints{font-size:11px;gap:8px}
+  .oc-command{grid-template-columns:minmax(0,1fr);padding:22px}.oc-figure{display:none}
+  .oc-identity>p:not(.oc-kicker),.oc-launch p,.oc-board-heading p,.oc-quest p{font-size:14px;line-height:1.75}
+  .oc-identity>small,.oc-mini-stats span,.oc-skill small,.oc-target,.oc-log small,.oc-log p,.oc-badges small,.oc-footer p{font-size:12px;line-height:1.65}
+  .oc-skill strong,.oc-log strong,.oc-badges strong{font-size:14px}.oc-skill em{font-size:12px}
+  .oc-skill{padding:14px 0}.oc-kicker{font-size:11px;line-height:1.6}
+  .oc-launch{flex-direction:column;align-items:stretch;padding:18px}.oc-launch .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .oc-launch .secondary,.oc-filters button,.oc-quest-actions .primary,.oc-quest-actions .secondary,.oc-link,.oc-footer .secondary{font-size:14px}
+  .oc-quest-top{font-size:10px;line-height:1.6}.oc-tags span,.oc-body-focus{font-size:11px}
+  .oc-quest-actions{flex-wrap:wrap;gap:12px}.oc-quest-actions>.oc-link:last-child{min-width:44px}
+  .oc-board-heading{flex-wrap:wrap}.oc-bottom{grid-template-columns:minmax(0,1fr)}
+  .oc-log .oc-link{font-size:12px}.oc-footer{flex-wrap:wrap}.oc-form-note{font-size:13px}
+  .oc-topline{font-size:9px;line-height:1.6}.oc-live{display:none}
+  dialog,#ocDialog{width:calc(100% - 24px);max-width:700px;max-height:calc(100dvh - 24px);padding:20px;overflow-y:auto;overscroll-behavior:contain}
+  .dialog-heading{align-items:flex-start}.dialog-heading h2{font-size:22px}.dialog-heading .icon{min-width:44px;flex-shrink:0}
+  .card-sides,.oc-form-grid{grid-template-columns:minmax(0,1fr)}.card-sides input{font-size:14px}
+  .card-top{font-size:13px}.card-editor{padding:14px}.dialog-footer{position:sticky;bottom:-20px;background:#0c1728;padding:14px 0;margin-bottom:-6px}
+  .dialog-footer .primary{width:100%}.edit-toolbar span{display:none}
+  .detail-heading{flex-direction:column}.card-row{gap:16px;padding:18px;font-size:15px}
+  .study-controls{flex-wrap:wrap;gap:12px}.flashcard{min-height:280px;padding:24px}.flash-face{font-size:24px}
+  footer{flex-wrap:wrap;gap:12px;line-height:1.7;padding-bottom:max(24px,env(safe-area-inset-bottom))}
+  #toast{bottom:max(16px,env(safe-area-inset-bottom));width:max-content;max-width:calc(100% - 32px);font-size:14px}
+}
+@media(max-width:600px){
+  header{justify-content:flex-end}header>span{display:none}.header-actions{width:100%;justify-content:flex-end;gap:10px}.header-actions .text-button{padding:8px;font-size:14px}
+  .sets,.math-topics,.psych-grid,.oc-quests{grid-template-columns:minmax(0,1fr)}
+  .heading-row>div{min-width:0}.heading-row>.primary,.heading-row>.secondary{width:100%}
+  .library-toolbar{align-items:flex-start;flex-direction:column}.library-toolbar input{width:100%}
+  .difficulty-label{width:100%;font-size:14px;display:block}.difficulty-label select{margin-top:8px}
+  .hero{padding:22px;min-height:290px}.hero h2{font-size:29px}.hero h2 em{font-size:25px}.hero-art{display:none}
+  .math-banner,.psych-banner{padding:20px}.psych-banner h2{font-size:28px}.pill{font-size:9px;line-height:1.6;letter-spacing:1px}
+  .study-top{flex-direction:column;gap:8px}.study-top h1,.study-top h2{margin-bottom:0}
+  .card-row{grid-template-columns:minmax(0,1fr)}.card-row>div+div{border-left:0;border-top:1px solid #2b415a;padding:16px 0 0}
+  .quiz-options{grid-template-columns:minmax(0,1fr)}.settings-panel{padding:18px}
+  .psych-ideas>div{gap:10px}.psych-ideas>div>div{min-width:0}.psych-ideas>div>span{flex-shrink:0}
+  .oc-heading h1{font-size:28px}.oc-identity{display:block}.oc-level{margin:20px 0 14px}.oc-mini-stats{gap:24px}
+  .oc-command{padding:18px}.oc-filters{gap:8px}.oc-filters button{padding:9px 12px}
+  .oc-board-heading{flex-direction:column;align-items:flex-start}.oc-quest{padding:20px}
+  .oc-footer .actions{width:100%;display:grid;grid-template-columns:1fr 1fr}
+}
