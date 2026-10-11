@@ -28,7 +28,7 @@ Gracias,Thank you
 
 ## Publish on GitHub Pages
 
-1. Create a GitHub repository and upload `index.html`, `style.css`, `deep-mind.css`, `neural-field.svg`, `app.js`, `math.js`, `max.js`, and `.nojekyll` to its root (or push this folder using Git).
+1. Create a GitHub repository and upload `index.html`, `style.css`, `deep-mind.css`, `neural-field.svg`, `app.js`, `math.js`, `algebra2.js`, `max.js`, and `.nojekyll` to its root (or push this folder using Git).
 2. In repository **Settings → Pages**, select **Deploy from a branch**, branch `main`, folder `/ (root)`, and Save.
 3. Open the website URL GitHub shows once deployment completes.
 
@@ -49,3 +49,7 @@ Run `node math-test.cjs` to check generated equations, answer parsing, hints, sc
 ## 3ds Max workshop
 
 Open **3ds Max** in the sidebar for six lessons covering the modifier stack, polygon operations, edge loops, Chamfer, Symmetry, and UV unwrapping. Each has an exercise to try in 3ds Max, a hint, an expected result, a knowledge check, and an Autodesk reference. Completion is tracked for the current page session. **Export lesson cards CSV** creates a CSV you can import into your study library. The website does not run 3ds Max or inspect your models.
+
+
+## Algebra 2
+Choose Math → Algebra 2 for quadratic, exponential, logarithmic, and radical equations. Each topic has two difficulty levels, ten-problem sessions, hints, and worked solutions. Quadratic answers require both real roots, separated by a comma, in either order.

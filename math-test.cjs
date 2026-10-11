@@ -3,6 +3,7 @@ const elements=new Map();
 function $(id){if(!elements.has(id))elements.set(id,{value:'',hidden:true,textContent:'',innerHTML:'',className:'',addEventListener(){},focus(){},select(){},querySelector(){return {};}});return elements.get(id);}
 const ctx=vm.createContext({$,show(){},esc:s=>String(s),console});
 vm.runInContext(fs.readFileSync(__dirname+'/math.js','utf8'),ctx);
+vm.runInContext(fs.readFileSync(__dirname+'/algebra2.js','utf8'),ctx);
 const run=s=>vm.runInContext(s,ctx);
 for(const topic of ['foundations','linear','both','brackets'])for(const difficulty of ['beginner','challenge'])for(let i=0;i<300;i++){
   const p=run(`createAlgebraProblem('${topic}','${difficulty}')`);
@@ -20,3 +21,12 @@ start();run("revealMathHint();$('#mathAnswer').value=String(mathSession.problem.
 start();run('revealMathSolution();revealMathSolution()');assert.equal(run('mathSession.assisted'),1);
 for(let i=1;i<10;i++)run('nextMathProblem();revealMathSolution()');run('nextMathProblem()');assert.equal(run('mathSession.number'),10);assert.ok($('#math').innerHTML.includes('SESSION COMPLETE'));
 console.log('Passed: 2,400 generated equations, answer parsing, retry flow, hint scoring, solution scoring, duplicate-submit handling, 10-problem completion.');
+
+for(const topic of ['quadratics','exponentials','logarithms','radicals'])for(const difficulty of ['beginner','challenge'])for(let i=0;i<300;i++){const p=run(`createAlgebra2Problem('${topic}','${difficulty}')`);for(const answer of [].concat(p.answer))assert.ok(Math.abs(p.lhs(answer)-p.rhs)<1e-8);}
+assert.ok(run("mathAnswerMatches('3, 2',[2,3])"));
+assert.ok(!run("mathAnswerMatches('2',[2,3])"));
+assert.ok(!run("mathAnswerMatches('2, 2',[2,3])"));
+assert.ok(!run("mathAnswerMatches('hello, 3',[2,3])"));
+run("mathSubject='algebra2'; mathSession={topic:'quadratics',difficulty:'challenge',number:0,correct:0,assisted:0,previous:''};nextMathProblem();$('#mathAnswer').value=mathSession.problem.answer.join(',');checkMathAnswer({preventDefault(){}})");
+assert.equal(run('mathSession.correct'),1);
+console.log('Passed: 2,400 Algebra 2 equations, both-root validation, Algebra 2 rendering and scoring.');
