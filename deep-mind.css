@@ -42,3 +42,6 @@
 @media(max-width:900px){#mathTools{grid-template-columns:minmax(0,1fr)}.tool-size-popover{width:min(320px,70vw)}}
 
 .math-tools-scroll{max-width:100%;min-width:0;overflow-x:auto;margin-top:12px;padding-bottom:10px;scrollbar-color:#a493bb #152236}.math-tools-scroll #mathTools{margin-top:0}
+
+/* Align smaller panels and pan larger panels together. */
+.math-tools-scroll #mathTools{margin-left:max(0px,calc((100% - 100% * var(--tool-width,1)) * var(--tool-position,0)));transition:none}.tool-size-popover{max-height:65vh;overflow-y:auto}#toolPositionHelp{margin-bottom:12px}
